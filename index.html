@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MP RADIO</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="img/logo-radio.png">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#000;
+  color:#d3a007;
+}
+
+header{
+  text-align:center;
+  padding:20px;
+}
+
+header img{
+  width:120px;
+  margin-bottom:10px;
+}
+
+header h1{
+  font-size:40px;
+  margin:0;
+}
+
+header p{
+  font-size:20px;
+  margin-top:5px;
+}
+
+audio{
+  width:95%;
+  margin:20px auto;
+  display:block;
+}
+
+.main-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  padding:40px;
+}
+
+.section{
+  border-top:1px solid #d3a007;
+  padding-top:15px;
+  margin-bottom:25px;
+}
+
+.programadores img{
+  width:260px;
+  border-radius:16px;
+  border:3px solid #d3a007;
+}
+
+.social-icons img{
+  width:50px;
+  margin-right:15px;
+  cursor:pointer;
+}
+
+.footer-logo img{
+  width:160px;
+}
+
+.install-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#d3a007;
+  color:#000;
+  border:none;
+  padding:14px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="img/logo-radio.png" alt="Logo MP Radio">
+  <h1>🎧 MP RADIO</h1>
+  <p>Ministros de la Palabra</p>
+</header>
+
+<audio controls autoplay>
+  <source src="https://stream.zeno.fm/oxt0glnzeg0uv.mp3" type="audio/mpeg">
+</audio>
+
+<div class="main-grid">
+
+  <!-- IZQUIERDA -->
+  <div>
+    <div class="section">
+      <h2>Misión y Visión</h2>
+      <p><strong>Misión:</strong> Informar, estimular y atraer a nuestros oyentes, convencidos de que sabemos algo que es imprescindible que ellos conozcan a través de una comunicación clara y un conocimiento profundo de parte de nuestro equipo de trabajo.</p>
+      <p><strong>Visión:</strong> Ser un ministerio reconocido por la excelencia de nuestro trabajo y el compromiso de nuestro equipo humano como canal de motivación al servicio de muchas personas en diferentes partes del mundo.</p>
+    </div>
+
+    <div class="section">
+      <h2>Web Oficial</h2>
+      <a href="https://www.ministrosdelapalabra.org" target="_blank">
+        <img src="img/web-mp.png" width="180">
+      </a>
+    </div>
+
+    <div class="section">
+      <h2>Podcast MP Radio</h2>
+      <a href="https://zeno.fm/radio/mp-radio-ce0t/" target="_blank">
+        <img src="img/podcast.png" width="180">
+      </a>
+    </div>
+
+    <div class="section">
+      <h2>Redes Sociales</h2>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/ministros.de.la.palabra.2025/" target="_blank">
+          <img src="img/facebook.png">
+        </a>
+        <a href="https://www.instagram.com/ministros_de_la_palabra/" target="_blank">
+          <img src="img/instagram.png">
+        </a>
+        <a href="https://www.youtube.com/@ministrosdelapalabra9342" target="_blank">
+          <img src="img/youtube.png">
+        </a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Contacto</h2>
+      <p>Correo: info@ministrosdelapalabra.org</p>
+      <p>WhatsApp: +506 8528 6323</p>
+    </div>
+  </div>
+
+  <!-- DERECHA -->
+  <div>
+    <div class="section programadores">
+      <h2>Programadores de la Radio</h2>
+      <img src="img/locutores1.png" alt="Locutores">
+    </div>
+
+    <div class="section">
+      <h2>Programación</h2>
+      <p><strong>Siervos del Nuevo Pacto</strong><br>Martes y Jueves – 5:00 pm CRC</p>
+      <p><strong>En paz me acostaré</strong><br>Lunes, Miércoles y Viernes – 8:00 pm CRC</p>
+      <p><strong>De Fe en Fe, de Gloria en Gloria</strong><br>Martes – 7:00 pm CRC / 10:00 pm Argentina</p>
+      <p><strong>Psicología del Alma</strong><br>Jueves – 7:00 pm CRC</p>
+    </div>
+
+    <div class="section footer-logo">
+      <img src="img/logo-empresa.png">
+    </div>
+  </div>
+
+</div>
+
+<button class="install-btn" id="installBtn" style="display:none;">
+  📲 Instalar App
+</button>
+
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block';
+
+  installBtn.onclick = async () => {
+    installBtn.style.display = 'none';
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  };
+});
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
+</body>
+</html>
